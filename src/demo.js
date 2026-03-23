@@ -1,4 +1,10 @@
+import './index.css';
 
-import './index.css'
+// 引入图片
+import logo from './img/kt.jpeg';
 
-console.log(6665)
+// 创建图片标签
+const img = new Image();
+img.src = logo;
+document.body.appendChild(img);
+console.log(62);
