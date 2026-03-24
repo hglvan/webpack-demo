@@ -4,15 +4,18 @@
   "description": "tes",
   "main": "index.js",
   "scripts": {
-    "build": "node --max_old_space_size=6164 ./node_modules/webpack/bin/webpack.js",
-    "serve": "webpack serve"
+    "build": "cross-env NODE_ENV=production node  --max_old_space_size=6164 ./node_modules/webpack/bin/webpack.js",
+    "serve": "cross-env NODE_ENV=development webpack serve"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "cross-env": "^10.1.0",
     "css-loader": "^7.1.4",
+    "dotenv": "^17.3.1",
     "html-webpack-plugin": "^5.6.6",
     "prettier": "^3.8.1",
+    "progress-bar-webpack-plugin": "^2.1.0",
     "style-loader": "^4.0.0",
     "webpack": "^5.105.4",
     "webpack-cli": "^7.0.2",
