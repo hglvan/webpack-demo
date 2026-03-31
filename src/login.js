@@ -1,5 +1,10 @@
-import './css/public.css';
-import './css/login.css';
+// import './css/public.css';
+// import './css/login.css';
+// import _ from 'lodash-es';
 
-import { abc } from './index.js';
-console.log('login29', abc());
+// console.log('6667');
+// console.log('login', _);
+
+import { createApp } from 'vue';
+import Login from './Login.vue';
+createApp(Login).mount('#app');

@@ -1,5 +1,7 @@
 //	导航固定顶部
 import 'flexslider';
+
+console.log('log');
 $(function () {
   $(window).scroll(function () {
     var ws = $(window).scrollTop();

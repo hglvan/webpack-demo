@@ -40,7 +40,7 @@ console.log('process.env.NODE_ENV', CopyPlugin);
 // });
 // 多页面入口配置（对应原有HTML页面）
 // 1. 定义基础路径
-const srcDir = path.resolve(__dirname, 'src');
+const srcDir = path.resolve(__dirname, '../src'); //注意：以前配置webpack.config.js在根目录，就用./src，以此类推现在用config文件夹，那相对应的就要../src下了
 function getEntry() {
   const entry = {};
   // 读取src目录下的所有文件/文件夹
@@ -70,7 +70,7 @@ function getHtmlPlugins() {
     return new HtmlWebpackPlugin({
       filename: `${entryName}.html`, // 输出的HTML文件名（如 demo.html）
       chunks: [entryName], // 只引入当前页面的js,对应上面的entry里面的key，如果不配这个，就只能单页面
-      template: path.resolve(__dirname, `src/${entryName}.html`), // 公共HTML模板（需提前创建）
+      template: path.resolve(__dirname, `../src/${entryName}.html`), // 公共HTML模板（需提前创建）
       inject: 'body', // js注入到body末尾
     });
   });
@@ -99,8 +99,10 @@ class MyPlugin {
     });
   }
 }
-console.log('getEntry()', getHtmlPlugins());
+console.log('getEntry()', getEntry());
 module.exports = {
+  // context: path.resolve(__dirname, '../'),
+
   performance: {
     //默认限制单个静态资源最好不要超过 244KiB
     hints: 'warning', // 关闭警告：false
@@ -118,7 +120,7 @@ module.exports = {
     // 以前用hash，修改一个文件，其他也会更新，现在改用contenthash，只有当前文件更新
     // 开发环境别用hash,生产才用,也就是分开配置文件,然后用webpack-merge合并
     filename: '[name].[contenthash:8].js', //(前面能不设置路径，就不设置吧，这里设置的话，就会多个zr文件包裹js) 输出JS文件到hg文件下面，加hash防缓存，也就是html引入js变成了<script defer="defer" src="/zr/hg/demo.4fa92a0d.js"></script>
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '../dist'),
     // publicPath: './', //设置资源放置路径，比如放到服务器的zr文件下，域名就可以通过zr来访问了
   },
   plugins: [
@@ -158,7 +160,7 @@ module.exports = {
       //把文件复制到另外一处，比如src里面的图片路径是img/，而打包后如果不用该插件，则访问不到，因为图片在src下面
       patterns: [
         // 从 public 复制 → 到 dist 根目录
-        { from: path.join(__dirname, './src/img'), to: path.join(__dirname, './dist/img') },
+        { from: path.join(__dirname, '../src/img'), to: path.join(__dirname, '../dist/img') },
       ],
     }),
   ],
@@ -174,8 +176,9 @@ module.exports = {
     ],
     splitChunks: {
       chunks: 'all', // 对所有模块分割（async + initial）
-      // minSize: 300 * 1024,
+      minSize: 3 * 1024,
       cacheGroups: {
+        //还可以单独打包某个依赖，比如jquery
         vendors: {
           test: /[\\/]node_modules[\\/]/,
           name: 'vendors',
@@ -186,7 +189,7 @@ module.exports = {
           minChunks: 2,
           priority: -20,
           reuseExistingChunk: true,
-          test: /\.(js)$/, // 👈 只抽 JS，**不抽 CSS！**
+          // test: /\.(js)$/, // 👈 只抽 JS，**不抽 CSS！**
         },
       },
     },
@@ -207,6 +210,13 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.ejs$/,
+        loader: 'ejs-loader', //ejs、handlebars是前面模板引擎，用了vue后，很少在用了
+        options: {
+          esModule: false,
+        },
+      },
       // 处理 CSS
       {
         test: /\.(png|jpg|jpeg|gif|svg)$/i,
