@@ -4,6 +4,10 @@
 // @vue/compiler-sfc
 // const { VueLoaderPlugin } = require('vue-loader');
 
+// 启动服务,旧版本用webpack-dev-server,新版本webpack server
+// "serve:vue": "cross-env NODE_ENV=development webpack-dev-server  --config config/webpack.vue.config.js",
+// "serve:vue": "cross-env NODE_ENV=development webpack server  --config config/webpack.vue.config.js",
+
 // App.vue、index.js(生成vue实例,引入vue)、index.html三剑客
 // 加入了router后,App.vue就要加入  <router-view></router-view>,而首页内容就用home.vue来承接
 

@@ -490,7 +490,7 @@ const router = useRouter();
 const hg = ref('test');
 console.log(32, router);
 function loginHandle() {
-  console.log('点击了');
+  console.log('8882323');
   router.push('/login');
 }
 </script>

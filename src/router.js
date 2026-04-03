@@ -3,7 +3,7 @@ import Login from './Login.vue';
 // import Router from 'vue-router';
 
 // 1. 引入 vue-router 核心方法
-import { createRouter, createWebHashHistory } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 
 // 3. 路由配置
 const routes = [
@@ -21,7 +21,7 @@ const routes = [
 
 // 4. 创建路由实例
 const router = createRouter({
-  history: createWebHashHistory(), // 路由模式（不带#）
+  history: createWebHistory(), // 路由模式（不带#）
   routes,
 });
 
